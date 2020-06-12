@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="corpo">
+		<title>Efetuar devolução</title>
+		<h:form id="formCadastroDevolucao">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:tabView>
+				<p:tab title="Dados Devolução">
+					
+					<p:separator />
+					
+					<h:panelGrid columns="4" cellpadding="5">
+						<p:outputLabel value="Locação:" />
+						<p:selectOneMenu value="#{locacaoBacking.codigo}" style="width:125px">
+							<f:selectItem itemLabel="- Selecione uma Locação -" itemValue=""/>
+							<f:selectItems value="#{locacaoBacking.pesquisarLocacoes()}" />
+							<p:ajax listener="#{locacaoBacking.atualizaCampos}" update="@form" /> 
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Funcionario:" />
+						<p:inputText value="#{locacaoBacking.funcionario}" readonly="true"/>
+
+						<p:outputLabel value="CPF do cliente:" />
+						<p:inputText value="#{locacaoBacking.cliente}" readonly="true"/>
+						
+						<p:outputLabel value="Valor:" />
+						<p:inputText value="#{locacaoBacking.valor}" readonly="true"/>
+						
+						<h:outputText value="Avaliação da locação:" />
+        				<p:rating value="#{locacaoBacking.formaPagamento}"/>
+						
+					</h:panelGrid>
+				</p:tab>
+			</p:tabView>
+
+			<p:spacer height="50" />
+
+			<p:panelGrid style="border:0px">
+				<p:commandButton value="Efetuar devolução" action="#{locacaoBacking.salvarDevolucao}"	update="@form" />
+				<p:commandButton value="Cancelar" action="#{locacaoBacking.limparCampos}" update="@form" />
+				<p:commandButton value="Sair" action="#{locacaoBacking.sair}" />
+			</p:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

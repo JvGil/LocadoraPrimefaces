@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="corpo">
+		<title>Alteração de filmes</title>
+		<h:form id="formCadastroFilme">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:tabView>
+				<p:tab title="Dados Filme">
+					<p:separator />
+					
+					<h:panelGrid columns="4" cellpadding="5">
+						<p:outputLabel value="Nome:" />
+						<p:inputText value="#{filmeBacking.filmeUpdate.nome}" size="35" disabled="true"/>
+
+						<p:outputLabel value="Gênero:" />
+						<p:selectOneMenu value="#{filmeBacking.filmeUpdate.generoCodigo.codigo}" style="width:125px" disabled="true">
+							<f:selectItem itemLabel="- Selecione um genero -" itemValue="" />
+							<f:selectItems value="#{filmeBacking.pesquisarGenero()}" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Valor:" />
+						<p:inputNumber symbolPosition="p" symbol="R$" value="#{filmeBacking.filmeUpdate.valor}" size="21" />
+
+						<p:outputLabel value="Disponível:" />
+						<p:selectOneMenu value="#{filmeBacking.filmeUpdate.disponivel}" style="width:125px">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItem itemLabel="SIM" itemValue="SIM" />
+							<f:selectItem itemLabel="NÃO" itemValue="NÃO" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Promoção:" />
+						<p:selectOneMenu value="#{filmeBacking.filmeUpdate.promocao}" style="width:125px">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItem itemLabel="SIM" itemValue="SIM" />
+							<f:selectItem itemLabel="NÃO" itemValue="NÃO" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Valor promoção:" />
+						<p:inputNumber symbolPosition="p" symbol="R$" value="#{filmeBacking.filmeUpdate.valorPromocao}" size="25" />
+					</h:panelGrid>
+				</p:tab>
+
+
+			</p:tabView>
+
+			<p:spacer height="50" />
+
+			<p:panelGrid style="border:0px">
+				<p:commandButton value="Salvar" action="#{filmeBacking.salvar}" update="@form" />
+				<p:commandButton value="Sair" action="#{filmeBacking.sair}"/>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

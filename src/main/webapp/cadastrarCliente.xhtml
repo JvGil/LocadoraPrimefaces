@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="corpo">
+		<title>Cadastro de clientes</title>
+		<h:form id="formCadastroCliente">
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:tabView>
+				<p:tab title="Dados Pessoais">
+					<p:separator />
+					<h:panelGrid columns="4" cellpadding="5">
+						<p:outputLabel value="Nome:" />
+						<p:inputText value="#{clienteBacking.nome}" size="35" placeholder="Ex.: Steve Jobs" />
+
+						<p:outputLabel value="CPF:" />
+						<p:inputMask value="#{clienteBacking.cpf}" mask="999.999.999-99" placeholder="Ex.: 123.456.789-01" />
+
+						<p:outputLabel value="RG:" />
+						<p:inputMask value="#{clienteBacking.rg}" mask="99.999.999-*" placeholder="Ex.: 12.345.678-9" />
+
+						<p:outputLabel value="Data de nascimento:" />
+						<p:inputMask id="date" value="#{clienteBacking.dataNascimento}" mask="99/99/9999" placeholder="Ex.: 01/01/2000"/>
+
+						<p:outputLabel value="Sexo:" />
+						<p:selectOneRadio value="#{clienteBacking.sexo}">
+							<f:selectItem itemLabel="Masculino" itemValue="M" />
+							<f:selectItem itemLabel="Feminino" itemValue="F" />
+						</p:selectOneRadio>
+					</h:panelGrid>
+				</p:tab>
+
+				<p:tab title="Informações de Endereço">
+					<p:separator />
+					<h:panelGrid columns="4" cellpadding="5">
+						<p:outputLabel value="Estado:" />
+						<p:selectOneMenu value="#{clienteBacking.estado}"
+							style="width:125px">
+							<f:selectItem itemLabel="- Selecione um Estado -" itemValue="" />
+							<f:selectItems value="#{clienteBacking.pesquisarEstado()}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Cidade:" />
+						<p:selectOneMenu value="#{clienteBacking.cidade}"
+							style="width:125px">
+							<f:selectItem itemLabel="- Selecione uma Cidade -" itemValue="" />
+							<f:selectItems value="#{clienteBacking.pesquisarCidade()}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="CEP:" />
+						<p:inputMask value="#{clienteBacking.cep}" mask="99.999-999" placeholder="Ex.: 12.345-678"/>
+
+						<p:outputLabel value="Bairro:" />
+						<p:inputText value="#{clienteBacking.bairro}" size="35" placeholder="Ex.: Centro" />
+
+						<p:outputLabel value="Logradouro:" />
+						<p:inputText value="#{clienteBacking.logradouro}" size="35" placeholder="Ex.: Avenida Central" />
+
+						<p:outputLabel value="Número:" />
+						<p:inputNumber value="#{clienteBacking.numero}" size="20" placeholder="Ex.: 123"/>
+
+						<p:outputLabel value="Complemento:" />
+						<p:inputText value="#{clienteBacking.complemento}" size="20" placeholder="Ex.: Apto 123"/>
+					</h:panelGrid>
+				</p:tab>
+
+				<p:tab title="Informações de Contato">
+					<p:separator />
+					<h:panelGrid columns="4" cellpadding="5">
+						<p:outputLabel value="Telefone:" />
+						<p:inputMask value="#{clienteBacking.telefone}" mask="(99) 9999-9999" placeholder="Ex.: (99) 9999-9999"/>
+
+						<p:outputLabel value="Celular:" />
+						<p:inputMask value="#{clienteBacking.celular}" mask="(99) 99999-9999" placeholder="Ex.: (99) 99999-9999" />
+
+						<p:outputLabel value="E-mail:" />
+						<p:inputText value="#{clienteBacking.email}" size="35" placeholder="Ex.: email@dominio.com" />
+					</h:panelGrid>
+				</p:tab>
+
+			</p:tabView>
+
+			<p:spacer height="50" />
+
+			<p:panelGrid style="border:0px">
+				<p:commandButton value="Salvar" action="#{clienteBacking.salvar}"
+					update="@form" />
+				<p:commandButton value="Cancelar"
+					action="#{clienteBacking.limparCampos}" update="@form" />
+				<p:commandButton value="Sair" action="#{clienteBacking.sair}" />
+			</p:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

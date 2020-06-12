@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="corpo">
+		<title>Cadastro de Funcionarios</title>
+		<h:form id="formCadastroFuncionario">
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:tabView>
+				<p:tab title="Dados Pessoais">
+
+					<h:panelGrid columns="4" cellpadding="5">
+						<p:outputLabel value="Nome:" />
+						<p:inputText value="#{funcionarioBacking.nome}" size="35" placeholder="Ex: Steve Jobs" />
+
+						<p:outputLabel value="CPF:" />
+						<p:inputMask mask="999.999.999-99" value="#{funcionarioBacking.cpf}" size="20" placeholder="Ex: 123.456.789-12" />
+
+						<p:outputLabel value="RG:" />
+						<p:inputMask mask="99.999.999-*" value="#{funcionarioBacking.rg}" size="35" placeholder="Ex: 12.345.678-X" />
+
+						<p:outputLabel value="Data Nasc:" />
+						<p:inputMask id="date" value="#{funcionarioBacking.dataNascimento}" mask="99/99/9999" />
+
+						<p:outputLabel value="Sexo:" />
+						<p:selectOneRadio id="sexo" value="#{funcionarioBacking.sexo}">
+							<f:selectItem itemLabel="Masculino" itemValue="M" />
+							<f:selectItem itemLabel="Feminino" itemValue="F" />
+						</p:selectOneRadio>
+					</h:panelGrid>
+
+				</p:tab>
+
+				<p:tab title="Informações de Endereço">
+					<h:panelGrid columns="4" cellpadding="5">
+						<p:outputLabel value="Estado:" />
+						<p:selectOneMenu value="#{funcionarioBacking.estado}" style="width:125px">
+							<f:selectItem itemLabel="- Selecione um Estado -" itemValue="" />
+							<f:selectItems value="#{funcionarioBacking.pesquisarEstado()}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Cidade:" />
+						<p:selectOneMenu filter="true" size="60" value="#{funcionarioBacking.cidade}">
+							<f:selectItem itemValue="" itemLabel="- Selecione a Cidade -" />
+							<f:selectItems value="#{funcionarioBacking.pesquisarCidade()}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="CEP:" />
+						<p:inputMask mask="99.999-999" value="#{funcionarioBacking.cep}" size="14" placeholder="Ex: 12.123-400" />
+
+						<p:outputLabel value="Bairro:" />
+						<p:inputText value="#{funcionarioBacking.bairro}" size="30" placeholder="Ex: Centro" maxlength="30" />
+
+						<p:outputLabel value="Logradouro:" />
+						<p:inputText value="#{funcionarioBacking.logradouro}" size="35" placeholder="Ex: Avenida Central" maxlength="50" />
+						
+						<p:outputLabel value="Numero:" />
+						<p:inputNumber value="#{funcionarioBacking.numero}" size="5" placeholder="Ex: 123" maxlength="5" />
+
+						<p:outputLabel value="Complemento:" />
+						<p:inputText value="#{funcionarioBacking.complemento}" size="20" placeholder="Ex: 123" maxlength="20" />
+					</h:panelGrid>
+				</p:tab>
+
+				<p:tab title="Informações de Contato">
+					<h:panelGrid columns="4" cellpadding="5">
+						<p:outputLabel value="Telefone:" />
+						<p:inputMask mask="(99) 9999-9999"
+							value="#{funcionarioBacking.telefone}" size="20" placeholder="Ex: (11) 4123-4123" maxlength="20" />
+
+						<p:outputLabel value="Celular:" />
+						<p:inputMask mask="(99) 99999-9999" value="#{funcionarioBacking.celular}" size="20" placeholder="Ex: (11) 91234-4123" maxlength="20" />
+						
+						<p:outputLabel value="Email:" />
+						<p:inputText value="#{funcionarioBacking.email}" size="35" placeholder="Ex: email@dominio.com.br" maxlength="60" />
+					</h:panelGrid>
+				</p:tab>
+
+				<p:tab title="Dados de acesso">
+					<h:panelGrid columns="4" cellpadding="5">
+						<p:outputLabel value="Login:" />
+						<p:inputText value="#{funcionarioBacking.login}" size="20" />
+						<h:outputText value="Senha: " />
+						<p:password id="feedback" value="#{funcionarioBacking.senha}" feedback="true" />
+					</h:panelGrid>
+				</p:tab>
+			</p:tabView>
+
+			<p:spacer height="50" />
+
+			<p:panelGrid style="border:0px">
+				<p:commandButton value="Salvar"
+					action="#{funcionarioBacking.salvar}" update="@form" />
+				<p:commandButton value="Cancelar" action="#{funcionarioBacking.limparCampos}" update="@form" />
+				<p:commandButton value="Sair" action="#{funcionarioBacking.sair}" />
+			</p:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

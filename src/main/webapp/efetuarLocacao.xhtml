@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="corpo">
+		<title>Efetuar locação</title>
+		<h:form id="formCadastroLocacao">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:tabView>
+				<p:tab title="Dados Filme">
+					<p:separator />
+					
+					
+					<h:panelGrid columns="2" cellpadding="5">
+						<p:outputLabel value="Filmes:" />
+						<p:selectManyCheckbox value="#{locacaoBacking.filmes}" layout="grid" columns="4">
+       						<f:selectItems value="#{locacaoBacking.pesquisarFilmes()}" />
+       						<p:ajax listener="#{locacaoBacking.atualizaValor}" update="valor" /> 
+    					</p:selectManyCheckbox>
+					</h:panelGrid>
+					
+					<p:separator />
+					
+					<h:panelGrid columns="4" cellpadding="5">
+						<p:outputLabel value="Funcionario:" />
+						<p:selectOneMenu value="#{locacaoBacking.funcionario}" style="width:125px">
+							<f:selectItem itemLabel="- Selecione um Funcionário -" itemValue=""/>
+							<f:selectItems value="#{locacaoBacking.pesquisarFuncionario()}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Cliente:" />
+						<p:selectOneMenu value="#{locacaoBacking.cliente}"
+							style="width:125px">
+							<f:selectItem itemLabel="- Selecione um Cliente -" itemValue="" />
+							<f:selectItems value="#{locacaoBacking.pesquisarCliente()}" />
+						</p:selectOneMenu>
+    					
+						<p:outputLabel value="Valor:" />
+						<p:inputText id="valor" value="#{locacaoBacking.valor}" disabled="true"/>
+						
+						<p:outputLabel value="Data devolução:" />
+						<p:inputMask value="#{locacaoBacking.dataDevolucao}" mask="99/99/9999" />
+        				
+					</h:panelGrid>
+					
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:outputLabel value="Forma de pagamento:" />
+						<p:selectOneRadio value="#{locacaoBacking.formaPagamento}" unselectable="true">
+            				<f:selectItems value="#{locacaoBacking.pesquisarFormaPagamento()}" />
+            			</p:selectOneRadio>
+					</h:panelGrid>
+				</p:tab>
+			</p:tabView>
+
+			<p:spacer height="50" />
+
+			<p:panelGrid style="border:0px">
+				<p:commandButton value="Salvar" action="#{locacaoBacking.salvar}" update="@form" />
+				<p:commandButton value="Cancelar" action="#{locacaoBacking.limparCampos}" update="@form" />
+				<p:commandButton value="Sair" action="#{locacaoBacking.sair}" />
+			</p:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
